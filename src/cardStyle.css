@@ -3,7 +3,6 @@
       Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
       "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
       "Source Han Sans CN", sans-serif;
-    --rpx: 100vw / 58;
   }
   
   .main-container {
@@ -28,49 +27,48 @@
     align-items: center;
     justify-content: center;
     flex-wrap: nowrap;
-    gap: calc(10 * var(--rpx));
+    gap: 10px;
     position: relative;
-    width: calc(58 * var(--rpx));
-    height: calc(89 * var(--rpx));
+    width: 58px;
+    height: 89px;
     margin: 0 auto;
-    padding: calc(18 * var(--rpx)) calc(19 * var(--rpx)) calc(18 * var(--rpx))
-      calc(19 * var(--rpx));
+    padding: 18px 19px 18px 19px;
   }
   .card-1 {
     flex-shrink: 0;
     position: absolute;
-    width: calc(58 * var(--rpx));
-    height: calc(89 * var(--rpx));
+    width: 58px;
+    height: 89px;
     top: 0;
     left: 0;
     font-size: 0px;
     background: #ffffff;
-    border: calc(1 * var(--rpx)) solid #000000;
+    border: 1px solid #000000;
     overflow: hidden;
-    border-radius: calc(10 * var(--rpx));
+    border-radius: 10px;
   }
   .number-2 {
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    width: calc(22 * var(--rpx));
-    height: calc(22 * var(--rpx));
+    width: 22px;
+    height: 22px;
     margin: 0 0 0 0;
     color: #000000;
     font-family: Inter, var(--default-font-family);
-    font-size: calc(12 * var(--rpx));
+    font-size: 12px;
     font-weight: 400;
-    line-height: calc(20 * var(--rpx));
+    line-height: 20px;
     text-align: center;
     white-space: nowrap;
     z-index: 1;
   }
   .flex-column-cbd {
     position: relative;
-    width: calc(17 * var(--rpx));
-    height: calc(50 * var(--rpx));
-    margin: calc(-1.5 * var(--rpx)) 0 0 calc(20.5 * var(--rpx));
+    width: 17px;
+    height: 50px;
+    margin: -1.5px 0 0 20.5px;
     font-size: 0px;
     z-index: 4;
     overflow: visible auto;
@@ -80,55 +78,50 @@
     align-items: flex-end;
     justify-content: center;
     position: relative;
-    width: calc(17 * var(--rpx));
-    height: calc(20 * var(--rpx));
+    width: 17px;
+    height: 20px;
     margin: 0 0 0 0;
     color: #000000;
     font-family: Inter, var(--default-font-family);
-    font-size: calc(12 * var(--rpx));
+    font-size: 12px;
     font-weight: 400;
-    line-height: calc(20 * var(--rpx));
+    line-height: 20px;
     text-align: center;
     white-space: nowrap;
     z-index: 3;
   }
-  .circle-2 {
+  .text-3 {
     display: flex;
     align-items: flex-start;
     justify-content: center;
     position: relative;
-    width: calc(17 * var(--rpx));
-    height: calc(20 * var(--rpx));
-    margin: calc(10 * var(--rpx)) 0 0 0;
+    width: 17px;
+    height: 20px;
+    margin: 10px 0 0 0;
     color: #000000;
     font-family: Inter, var(--default-font-family);
-    font-size: calc(12 * var(--rpx));
+    font-size: 12px;
     font-weight: 400;
-    line-height: calc(20 * var(--rpx));
+    line-height: 20px;
     text-align: center;
     white-space: nowrap;
     z-index: 4;
   }
-  .number-2-3 {
+  .text-4 {
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    width: calc(22 * var(--rpx));
-    height: calc(22 * var(--rpx));
-    margin: calc(-1.5 * var(--rpx)) 0 0 calc(36 * var(--rpx));
+    width: 22px;
+    height: 22px;
+    margin: -1.5px 0 0 36px;
     color: #000000;
     font-family: Inter, var(--default-font-family);
-    font-size: calc(12 * var(--rpx));
+    font-size: 12px;
     font-weight: 400;
-    line-height: calc(20 * var(--rpx));
+    line-height: 20px;
     text-align: center;
     white-space: nowrap;
     transform: rotate(-180deg);
     z-index: 2;
-  }
-
-  .size{
-    width: 100px;
-    height: 200px;
   }
