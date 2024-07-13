@@ -1,0 +1,56 @@
+.card {
+    background-color: #ffffff;
+    border: 1px solid;
+    border-color: #000000;
+    border-radius: 10px;
+    height: 89px;
+    overflow: hidden;
+    width: 58px;
+  }
+  
+  .card .overlap-group {
+    height: 90px;
+    position: relative;
+    top: -1px;
+  }
+  
+  .card .text-wrapper {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    height: 22px;
+    left: 0;
+    letter-spacing: 0;
+    line-height: 20px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    white-space: nowrap;
+    width: 22px;
+  }
+  
+  .card .div {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    height: 22px;
+    left: 36px;
+    letter-spacing: 0;
+    line-height: 20px;
+    position: absolute;
+    text-align: center;
+    top: 67px;
+    transform: rotate(-180deg);
+    white-space: nowrap;
+    width: 22px;
+  }
+  
+  .card .group {
+    height: 89px;
+    left: 0;
+    position: absolute;
+    top: 1px;
+    width: 58px;
+  }
