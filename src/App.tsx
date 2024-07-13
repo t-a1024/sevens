@@ -2,14 +2,15 @@ import './cardStyle.css';
 
 function App() {
   return (
-    <div className="App">
-      <div className='main-container'>
-      <div className='card'>
-        <span className='span-a'>A</span>
-        <span className='span-circle'>♥</span>
-        <span className='span-a-1'>A</span>
+    <div className='main-container'>
+      <div className='card-1'>
+        <span className='number-2'>2</span>
+        <div className='flex-column-cbd'>
+          <span className='circle'>♥</span>
+          <span className='circle-2'>♥</span>
+        </div>
+        <span className='number-2-3'>2</span>
       </div>
-    </div>
     </div>
   );
 }
