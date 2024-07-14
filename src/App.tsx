@@ -91,6 +91,7 @@ function App() {
 
   return (
     <div className="App" style={{ display: "flex", flexWrap: "wrap" }}>
+      <div className="bg_pattern1 Paper_v2">
       {cards.map((card, index) => (
         <div key={index} style={{ margin: "10px" }} onClick={() => handleCardClick(index)} className={`card ${card.isFlipped ? 'flipped' : 'unflipped'}`}>
           {card.isFlipped || card.isMatched ? (
@@ -100,6 +101,7 @@ function App() {
           )}
         </div>
       ))}
+    </div>
     </div>
   );
 }
