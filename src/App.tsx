@@ -1,14 +1,18 @@
 import  Card  from "./assets/cardCompornents";
 import { CardData } from "./assets/cardData";
+import { markData } from "./assets/markData";
 function App() {
   return (
     <div className="App">
-      {CardData.map(card => (
-        <div key={card.id}>
-          <Card id={card.id} mark="♠" color="red" />
-          <br />
-        </div>
+      {markData.map(mark=>(
+        CardData.map(card => (
+          <div key={card.id}>
+            <Card id={card.id} mark={mark.label} color={mark.color} />
+            <br />
+          </div>
+        ))
       ))}
+
       {/* ここでCardDataの中のカード全部を表示したい mark="♠"で*/}
 {/*       <Card id={2} mark="♠"/>
       <br />
