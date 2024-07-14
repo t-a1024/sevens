@@ -1,0 +1,42 @@
+.box {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+
+.box .element{
+    height: 50px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 21px;
+}
+
+.box .text-wrapper{
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 12px;
+    height: 20px;
+    left: 0;
+    letter-spacing: 0;
+    line-height: 20px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    white-space: nowrap;
+}
+
+.box .div {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica; 
+    font-size: 12px; 
+    font-weight: 400; 
+    left: 0;
+    letter-spacing: 0; 
+    line-height: 20px; 
+    position: absolute; 
+    text-align: center;
+    top: 30px;
+    white-space: nowrap;
+}
