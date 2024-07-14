@@ -1,0 +1,31 @@
+.box {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+
+.box .element{
+    height: auto;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 21px;
+}
+
+
+.element .mark3{
+    align-self: stretch;
+    color: #000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+    position: relative;
+    text-align: center;
+}
+
+#rotate{
+    transform: rotate(-180deg);
+}

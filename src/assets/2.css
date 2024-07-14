@@ -40,3 +40,7 @@
     top: 30px;
     white-space: nowrap;
 }
+
+.div{
+    transform: rotate(-180deg);
+}
