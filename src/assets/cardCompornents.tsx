@@ -1,24 +1,24 @@
 import React from 'react';
 import './card.css';
-import { ALabel } from "./A";
-import { Card2 } from "./card2";
-import { Card3 } from './card3';
+import { CardData } from './cardData'; // インポートを追加
 
 interface CardProps {
-    str: string;
-    mark:string;
+    id: number;
+    mark: string;
 }
 
+export default function Card({ id, mark }: CardProps) {
+  // idに対応するラベルコンポーネントをCardDataから取得
+  const cardInfo = CardData.find(card => card.id === id);
+  const LabelComponent = cardInfo ? cardInfo.label : null;
 
-export default function Card({ str,mark }: CardProps) { // 型を指定
   return (
     <div className="card">
       <div className="overlap-group">
-        <div className="text-wrapper">{str}</div>
-        <div className="div">{str}</div>
+        <div className="text-wrapper">{cardInfo ? cardInfo.str : 'Unknown'}</div>
+        <div className="div">{cardInfo ? cardInfo.str : 'Unknown'}</div>
         <div className="group">
-        {/* <ALabel mark={mark}/> */}
-          <ALabel mark={mark}/>
+          {LabelComponent && <LabelComponent mark={mark} />} {/* ラベルコンポーネントをレンダー */}
         </div>
       </div>
     </div>

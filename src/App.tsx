@@ -2,9 +2,11 @@ import  Card  from "./assets/cardCompornents";
 function App() {
   return (
     <div className="App">
-      <Card str={"A"} mark="♠"/>
+      <Card id={1} mark="♠"/>
       <br />
-      <Card str={"A"} mark="♣"/>
+      <Card id={2} mark="♠"/>
+      <br />
+      <Card id={3} mark="♣"/>
     </div>
   );
 }

@@ -1,10 +1,10 @@
-.box {
+.box3 {
     height: 100%;
     position: absolute;
     width: 100%;
 }
 
-.box .element{
+.box3 .element3{
     height: auto;
     left: 50%;
     position: absolute;
@@ -14,7 +14,7 @@
 }
 
 
-.element .mark3{
+.element3 .mark3{
     align-self: stretch;
     color: #000;
     font-family: "Inter-Regular", Helvetica;
