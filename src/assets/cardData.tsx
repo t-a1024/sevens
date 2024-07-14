@@ -3,6 +3,7 @@ import { Card2 } from "./card2";
 import { Card3 } from "./card3";
 import { Card4 } from "./card4";
 import { Card5 } from "./card5";
+import { Card6 } from "./card6";
 
 export interface Card {
     id: number;
@@ -35,5 +36,10 @@ export const CardData: Card[] = [
         id: 5,
         str: "5",
         label: Card5
+    },
+    {
+        id: 6,
+        str: "6",
+        label: Card6
     }
 ];
