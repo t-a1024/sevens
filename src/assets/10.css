@@ -12,7 +12,6 @@
 }
 
 .element10 .text10 {
-    color: #000;
     font-family: "Inter-Regular", Helvetica;
     font-size: 12px;
     font-weight: 400;
@@ -33,7 +32,7 @@
 }
 
 .box10 .text-wrapper10{
-    color: #000000;
+    color: red;
     font-family: "Inter-Regular", Helvetica;
     font-size: 12px;
     height: 20px;
