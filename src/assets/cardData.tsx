@@ -5,6 +5,7 @@ import { Card4 } from "./card4";
 import { Card5 } from "./card5";
 import { Card6 } from "./card6";
 import { Card7 } from "./card7";
+import { Card8 } from "./card8";
 
 export interface Card {
     id: number;
@@ -47,5 +48,10 @@ export const CardData: Card[] = [
         id: 7,
         str: "7",
         label: Card7
-    }
+    },
+    {
+        id: 8,
+        str: "8",
+        label: Card8
+    },
 ];
