@@ -12,7 +12,7 @@ function App() {
       <br />
       <Card id={5} mark="♦"/>
       <br />
-      <Card id={8} mark="♠"/>
+      <Card id={9} mark="♠"/>
     </div>
   );
 }
