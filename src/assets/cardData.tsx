@@ -2,6 +2,7 @@ import { ALabel } from "./A";
 import { Card2 } from "./card2";
 import { Card3 } from "./card3";
 import { Card4 } from "./card4";
+import { Card5 } from "./card5";
 
 export interface Card {
     id: number;
@@ -29,5 +30,10 @@ export const CardData: Card[] = [
         id: 4,
         str: "4",
         label: Card4
+    },
+    {
+        id: 5,
+        str: "5",
+        label: Card5
     }
 ];

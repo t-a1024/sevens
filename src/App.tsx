@@ -9,6 +9,8 @@ function App() {
       <Card id={3} mark="♣"/>
       <br />
       <Card id={4} mark="♣"/>
+      <br />
+      <Card id={5} mark="♦"/>
     </div>
   );
 }
