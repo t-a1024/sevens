@@ -1,0 +1,38 @@
+/* App.css */
+@keyframes flipToFront {
+    0% {
+      transform: perspective(600px) rotateY(0deg);
+    }
+    100% {
+      transform: perspective(600px) rotateY(360deg);
+    }
+  }
+  
+  @keyframes flipToBack {
+    0% {
+      transform: perspective(600px) rotateY(180deg);
+    }
+    100% {
+      transform: perspective(600px) rotateY(360deg);
+    }
+  }
+  
+  .card {
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+  }
+  
+  .card.flipped {
+    animation: flipToFront 0.6s forwards;
+  }
+  
+  .card.unflipped {
+    animation: flipToBack 0.6s forwards;
+  }
+  .card.front {
+    transform: rotateY(0deg);
+  }
+  
+  .card.back {
+    transform: rotateY(180deg);
+  }

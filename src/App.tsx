@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Card from "./assets/cardCompornents";
 import { CardData } from "./assets/cardData";
 import { markData } from "./assets/markData";
+import './App.css'; // CSSファイルをインポート
 
 // 配列をシャッフルする関数を定義
-function shuffleArray(array: any[]) {
+function shuffleArray(array:any[]) {
   return array
     .map(value => ({ value, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
@@ -91,11 +92,11 @@ function App() {
   return (
     <div className="App" style={{ display: "flex", flexWrap: "wrap" }}>
       {cards.map((card, index) => (
-        <div key={index} style={{ margin: "10px" }} onClick={() => handleCardClick(index)}>
+        <div key={index} style={{ margin: "10px" }} onClick={() => handleCardClick(index)} className={`card ${card.isFlipped ? 'flipped' : 'unflipped'}`}>
           {card.isFlipped || card.isMatched ? (
-            <Card id={card.id} mark={card.mark} color={card.color} />
+            <Card id={card.id} mark={card.mark} color={card.color} />//カードの表面
           ) : (
-            <Card id={0} mark={card.mark} color={card.color} />
+            <Card id={0} mark={card.mark} color={card.color} />//カードの裏面
           )}
         </div>
       ))}
