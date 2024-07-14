@@ -6,15 +6,15 @@
     height: 89px;
     overflow: hidden;
     width: 58px;
-  }
-  
-  .card .overlap-group {
+}
+
+.card .overlap-group {
     height: 90px;
     position: relative;
     top: -1px;
-  }
-  
-  .card .text-wrapper {
+}
+
+.card .text-wrapper {
     color: #000000;
     font-family: "Inter-Regular", Helvetica;
     font-size: 12px;
@@ -28,9 +28,9 @@
     top: 0;
     white-space: nowrap;
     width: 22px;
-  }
-  
-  .card .div {
+}
+
+.card .div {
     color: #000000;
     font-family: "Inter-Regular", Helvetica;
     font-size: 12px;
@@ -45,12 +45,19 @@
     transform: rotate(-180deg);
     white-space: nowrap;
     width: 22px;
-  }
-  
-  .card .group {
+}
+
+.card .group {
     height: 89px;
     left: 0;
     position: absolute;
     top: 1px;
     width: 58px;
-  }
+}
+
+/* .card .ALabel-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+} */
