@@ -5,12 +5,14 @@ function App() {
   return (
     <div className="App">
       {markData.map(mark=>(
-        CardData.map(card => (
-          <div key={card.id}>
+        <div style={{display: "flex",}}>
+        {CardData.map(card => (
+          <div key={card.id} style={{margin: "10px"}}>
             <Card id={card.id} mark={mark.label} color={mark.color} />
             <br />
           </div>
-        ))
+        ))}
+        </div>
       ))}
 
       {/* ここでCardDataの中のカード全部を表示したい mark="♠"で*/}
