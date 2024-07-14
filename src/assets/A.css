@@ -1,11 +1,11 @@
-.label {
+.Alabel {
     height: 100%;
     width: 100%;
     position: relative; /* Position to absolute for centering */
     text-align: center;
 }
 
-.label .text-wrapper {
+.Alabel .text-wrapperA {
     width: 100%;
     height: 100%;
     color: #000000;

@@ -1,10 +1,10 @@
-.box {
+.box2 {
     height: 100%;
     position: absolute;
     width: 100%;
 }
 
-.box .element{
+.box2 .element2{
     height: 50px;
     left: 50%;
     position: absolute;
@@ -13,7 +13,7 @@
     width: 21px;
 }
 
-.box .text-wrapper{
+.box2 .text-wrapper2{
     color: #000000;
     font-family: "Inter-Regular", Helvetica;
     font-size: 12px;
@@ -21,13 +21,12 @@
     left: 0;
     letter-spacing: 0;
     line-height: 20px;
-    position: absolute;
     text-align: center;
     top: 0;
     white-space: nowrap;
 }
 
-.box .div {
+.box2 .div2 {
     color: #000000;
     font-family: "Inter-Regular", Helvetica; 
     font-size: 12px; 
@@ -35,12 +34,9 @@
     left: 0;
     letter-spacing: 0; 
     line-height: 20px; 
-    position: absolute; 
+    position: relative;
     text-align: center;
     top: 30px;
     white-space: nowrap;
-}
-
-.div{
     transform: rotate(-180deg);
 }

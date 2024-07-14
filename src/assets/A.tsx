@@ -7,8 +7,8 @@ interface mark{
 
 export const ALabel = ({ mark }:mark): JSX.Element => {
   return (
-    <div className="label">
-      <div className="text-wrapper">{mark}</div>
+    <div className="Alabel">
+      <div className="text-wrapperA">{mark}</div>
     </div>
   );
 };
