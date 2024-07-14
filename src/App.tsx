@@ -12,8 +12,11 @@ function shuffleArray(array: any[]) {
 }
 
 function App() {
+  // CardDataからidが0のカードを取り除く
+  const filteredCardData = CardData.filter(card => card.id !== 0);
+
   // CardDataとmarkDataの組み合わせを作成
-  const combinedData = CardData.flatMap(card =>
+  const combinedData = filteredCardData.flatMap(card =>
     markData.map(mark => ({
       ...card,
       mark: mark.label,
