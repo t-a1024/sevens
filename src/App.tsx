@@ -89,7 +89,7 @@ function App() {
   // ゲームクリアの判定
   useEffect(() => {
     if (matchedCount === cards.length && cards.length > 0) {
-      alert("クリアおめでとうございます！  手数: {moveCount}");
+      alert("クリアおめでとうございます！  手数: "+moveCount);
     }
   }, [matchedCount, cards]);
 
