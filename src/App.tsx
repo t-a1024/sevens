@@ -28,6 +28,8 @@ function App() {
   const [cards, setCards] = useState<ShuffledCard[]>([]);
   const [flippedCards, setFlippedCards] = useState<number[]>([]);
   const [matchedCount, setMatchedCount] = useState(0);
+  const [moveCount, setMoveCount] = useState(0); // 手数の状態を追加
+
 
   // 初期化処理
   useEffect(() => {
@@ -55,6 +57,8 @@ function App() {
     if (cards[index].isFlipped || cards[index].isMatched || flippedCards.length === 2) {
       return;
     }
+
+    setMoveCount(moveCount + 1); // カードをクリックするたびに手数を増加
 
     const newCards = [...cards];
     newCards[index].isFlipped = true;
@@ -85,13 +89,15 @@ function App() {
   // ゲームクリアの判定
   useEffect(() => {
     if (matchedCount === cards.length && cards.length > 0) {
-      alert("クリアおめでとうございます！");
+      alert("クリアおめでとうございます！  手数: {moveCount}");
     }
   }, [matchedCount, cards]);
 
   return (
     <div className="App" style={{ display: "flex", flexWrap: "wrap" }}>
       <div className="bg_pattern1 Paper_v2">
+      <h3>手数: {moveCount}</h3>
+      <h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1>
       {cards.map((card, index) => (
         <div key={index} style={{ margin: "10px" }} onClick={() => handleCardClick(index)} className={`card ${card.isFlipped ? 'flipped' : 'unflipped'}`}>
           {card.isFlipped || card.isMatched ? (
@@ -102,6 +108,8 @@ function App() {
         </div>
       ))}
     </div>
+    <div style={{ marginTop: "20px", textAlign: "center" }}>
+      </div>
     </div>
   );
 }
