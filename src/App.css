@@ -49,7 +49,7 @@
 
 @keyframes flipToFront {
     0% {
-      transform: perspective(600px) rotateY(0deg);
+      transform: perspective(600px) rotateY(180deg);
     }
     100% {
       transform: perspective(600px) rotateY(360deg);
