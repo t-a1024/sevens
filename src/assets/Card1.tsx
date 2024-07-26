@@ -1,5 +1,5 @@
 import React from "react";
-import "./A.css";
+import "./1.css";
 
 interface mark{
     mark:string
