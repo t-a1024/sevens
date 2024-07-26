@@ -1,4 +1,4 @@
-import { ALabel } from "./A";
+import { ALabel } from "./Card1";
 import { Card10 } from "./card10";
 import { Card2 } from "./card2";
 import { Card3 } from "./card3";
