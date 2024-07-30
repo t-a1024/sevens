@@ -108,8 +108,6 @@ function App() {
         </div>
       ))}
     </div>
-    <div style={{ marginTop: "20px", textAlign: "center" }}>
-      </div>
     </div>
   );
 }

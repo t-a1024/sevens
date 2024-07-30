@@ -45,6 +45,10 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     justify-items: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 
 @keyframes flipToFront {

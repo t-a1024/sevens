@@ -1,17 +1,9 @@
 .card {
-    background-color: #ffffff;
-    border: 1px solid;
-    border-color: #000000;
-    border-radius: 10px;
+    outline: solid black;
+    border-radius: 5px;
     height: 89px;
     overflow: hidden;
     width: 58px;
-}
-
-.card .overlap-group {
-    height: 90px;
-    position: relative;
-    top: -1px;
 }
 
 .card .text-wrapper {
@@ -51,13 +43,5 @@
     height: 89px;
     left: 0;
     position: absolute;
-    top: 1px;
     width: 58px;
 }
-
-/* .card .ALabel-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-} */

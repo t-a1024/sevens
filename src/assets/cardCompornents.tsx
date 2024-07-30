@@ -15,12 +15,10 @@ export default function Card({ id, mark, color }: CardProps) {
 
   return (
     <div className="card" style={{background: "#eaf4fc"}}>
-      <div className="overlap-group" style={{ color: color }}>
-        <div className="text-wrapper" style={{ color: color }}>{cardInfo ? cardInfo.str : 'Unknown'}</div>
-        <div className="div" style={{ color: color }}>{cardInfo ? cardInfo.str : 'Unknown'}</div>
-        <div className="group">
-          {LabelComponent && <LabelComponent mark={mark} color={color}/>}
-        </div>
+      <div className="text-wrapper" style={{ color: color }}>{cardInfo ? cardInfo.str : 'Unknown'}</div>
+      <div className="div" style={{ color: color }}>{cardInfo ? cardInfo.str : 'Unknown'}</div>
+      <div className="group">
+        {LabelComponent && <LabelComponent mark={mark} color={color}/>}
       </div>
     </div>
   );
