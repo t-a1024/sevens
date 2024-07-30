@@ -3,11 +3,10 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: auto;
-    height: auto;
+    width: 100vw;
+    height: 100vh;
     background-color: #fff;
     z-index: -1;
-    
   }
   .Paper_v2 {
     background-image:
@@ -87,4 +86,11 @@
   
   .card.back {
     transform: rotateY(180deg);
+  }
+
+  .autoScale{
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 10px;
+    justify-items: center;
   }
