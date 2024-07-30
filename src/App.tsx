@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Card from "./assets/cardCompornents";
 import { CardData } from "./assets/cardData";
 import { markData } from "./assets/markData";
 import './App.css'; // CSSファイルをインポート
 
 // 配列をシャッフルする関数を定義
-function shuffleArray(array:any[]) {
+function shuffleArray(array: any[]) {
   return array
     .map(value => ({ value, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
@@ -29,7 +29,9 @@ function App() {
   const [flippedCards, setFlippedCards] = useState<number[]>([]);
   const [matchedCount, setMatchedCount] = useState(0);
   const [moveCount, setMoveCount] = useState(0); // 手数の状態を追加
+  const [scale, setScale] = useState(1); // スケール状態を追加
 
+  const appRef = useRef<HTMLDivElement>(null); // refを作成
 
   // 初期化処理
   useEffect(() => {
@@ -50,6 +52,45 @@ function App() {
     // シャッフルされたカードデータ
     const shuffledData = shuffleArray(combinedData);
     setCards(shuffledData);
+  }, []);
+
+  // 画面サイズに応じてスケールを設定
+  useEffect(() => {
+    const updateScale = () => {
+      if (appRef.current) {
+        const appWidth = appRef.current.offsetWidth;
+        const appHeight = appRef.current.offsetHeight;
+        console.log(appWidth);
+        console.log(appHeight);
+        
+        const widthScale = window.innerWidth / appWidth;
+        const heightScale = window.innerHeight / appHeight;
+        console.log(widthScale);
+        console.log(heightScale);
+                
+        setScale(Math.min(widthScale, heightScale));
+      }
+    };
+
+    const resizeObserver = new ResizeObserver(() => {
+      updateScale();
+    });
+
+    if (appRef.current) {
+      resizeObserver.observe(appRef.current);
+    }
+
+    window.addEventListener('resize', updateScale);
+    
+    // 最初のレンダリング後にスケールを計算
+    setTimeout(updateScale, 0);
+
+    return () => {
+      window.removeEventListener('resize', updateScale);
+      if (appRef.current) {
+        resizeObserver.unobserve(appRef.current);
+      }
+    };
   }, []);
 
   // カードをクリックしたときの処理
@@ -89,25 +130,25 @@ function App() {
   // ゲームクリアの判定
   useEffect(() => {
     if (matchedCount === cards.length && cards.length > 0) {
-      alert("クリアおめでとうございます！  手数: "+moveCount);
+      alert("クリアおめでとうございます！  手数: " + moveCount);
     }
   }, [matchedCount, cards]);
 
   return (
-    <div className="App" style={{ display: "flex", flexWrap: "wrap" }}>
-      <div className="bg_pattern1 Paper_v2">
-      <h3>手数: {moveCount}</h3>
-      <h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1>
-      {cards.map((card, index) => (
-        <div key={index} style={{ margin: "10px" }} onClick={() => handleCardClick(index)} className={`card ${card.isFlipped ? 'flipped' : 'unflipped'}`}>
-          {card.isFlipped || card.isMatched ? (
-            <Card id={card.id} mark={card.mark} color={card.color} />//カードの表面
-          ) : (
-            <Card id={0} mark={card.mark} color={card.color} />//カードの裏面
-          )}
-        </div>
-      ))}
-    </div>
+    <div className="App" style={{ transform: `scale(${scale})`, transformOrigin: 'top left' }}>
+      <div className="bg_pattern1 Paper_v2" ref={appRef}>
+        <h3>手数: {moveCount}</h3>
+        <h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1>
+        {cards.map((card, index) => (
+          <div key={index} style={{ margin: "10px" }} onClick={() => handleCardClick(index)} className={`card ${card.isFlipped ? 'flipped' : 'unflipped'}`}>
+            {card.isFlipped || card.isMatched ? (
+              <Card id={card.id} mark={card.mark} color={card.color} />//カードの表面
+            ) : (
+              <Card id={0} mark={card.mark} color={card.color} />//カードの裏面
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
