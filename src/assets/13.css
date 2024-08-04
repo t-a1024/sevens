@@ -1,0 +1,73 @@
+.element13 {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 95%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 0;
+}
+
+.element13 .text13 {
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+    position: relative;
+    text-align: center;
+    white-space: nowrap;
+    width: fit-content;
+    align-self: center;
+    justify-self: center;
+}
+
+.box13 {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+
+.box13 .text-wrapper13{
+    color: red;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 12px;
+    height: 20px;
+    left: 0;
+    letter-spacing: 0;
+    line-height: 45px;
+    text-align: center;
+    top: 0;
+    white-space: nowrap;
+}
+
+.box13 .div13 {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica; 
+    font-size: 12px; 
+    font-weight: 400; 
+    left: 0;
+    letter-spacing: 0; 
+    line-height: 20px; 
+    position: relative;
+    text-align: center;
+    top: 34px;
+    white-space: nowrap;
+    transform: rotate(-180deg);
+}
+
+.element13 .CenterLine13{
+    position: fixed;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 43px;
+    font-size: 12px;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+}
