@@ -1,5 +1,6 @@
 import { ALabel } from "./Card1";
 import { Card10 } from "./card10";
+import { Card11 } from "./card11";
 import { Card2 } from "./card2";
 import { Card3 } from "./card3";
 import { Card4 } from "./card4";
@@ -70,5 +71,10 @@ export const CardData: Card[] = [
         id: 10,
         str: "10",
         label: Card10
+    },
+    {
+        id: 11,
+        str: "J",
+        label: Card11
     },
 ];
