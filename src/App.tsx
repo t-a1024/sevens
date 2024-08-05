@@ -139,7 +139,7 @@ function App() {
       <div className="App" style={{ transform: `scale(${scale})`, transformOrigin: 'top left' }}>
         <div className='autoScale' ref={appRef}>
           <h3>手数: {moveCount}</h3>
-          <h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1>
+          <h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1>
           {cards.map((card, index) => (
             <div key={index} style={{ margin: "10px" }} onClick={() => handleCardClick(index)} className={`card ${card.isFlipped ? 'flipped' : 'unflipped'}`}>
               {card.isFlipped || card.isMatched ? (

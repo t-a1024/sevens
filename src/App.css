@@ -34,7 +34,7 @@
         transparent 105px,  transparent 129px, 
         rgba(0, 0, 0, 0.04) 130px,  rgba(0, 0, 0, 0.04) 130px);
         display: grid;
-        grid-template-columns: repeat(10, 1fr);
+        grid-template-columns: repeat(13, 1fr);
         gap: 10px;
         justify-items: center;
   }
@@ -90,7 +90,7 @@
 
   .autoScale{
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
+    grid-template-columns: repeat(13, 1fr);
     gap: 10px;
     justify-items: center;
   }
