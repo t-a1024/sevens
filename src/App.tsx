@@ -29,13 +29,14 @@ function App() {
 
   return (
     <div className="App">
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
+      {/* <div style={{ display: "flex", flexWrap: "wrap" }}>
         {shuffledData.map((card, index) => (
           <div key={index} style={{ margin: "10px" }}>
             <Card id={card.id} mark={card.mark} color={card.color} />
           </div>
         ))}
-      </div>
+      </div> */}
+      <Card id={10} mark={'♠'} color={'red'}></Card>
     </div>
   );
 }
