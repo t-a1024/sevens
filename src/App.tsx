@@ -1,35 +1,41 @@
 import React from 'react';
 import Card from "./assets/cardCompornents";
-import { CardData } from "./assets/cardData";
-import { markData } from "./assets/markData";
-
-// 配列をシャッフルする関数を定義
-function shuffleArray(array: any[]) {
-  return array
-    .map(value => ({ value, sort: Math.random() }))
-    .sort((a, b) => a.sort - b.sort)
-    .map(({ value }) => value);
-}
+import { Board } from './game/board';
+import { Player } from './game/player';
 
 function App() {
-  // CardDataからidが0のカードを取り除く
-  const filteredCardData = CardData.filter(card => card.id !== 0);
+  const players = [
+    new Player("t-a"),
+    new Player("tas"),
+    new Player("aki"),
+    new Player("baca"),
+  ];
 
-  const combinedData = markData.flatMap(mark =>
-    filteredCardData.map(card => ({
-      ...card,
-      mark:mark.label,
-      color:mark.color
-    }))
-  );
+  const manager = new Board(players);
+  const board = manager.getboard;
 
+  // boardをidでソート
+  //const sortedBoard = board.sort((a, b) => a.id - b.id);
 
   return (
     <div className="App">
       <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {combinedData.map((card, index) => (
+        {board.map((card, index) => (
           <div key={index} style={{ margin: "10px" }}>
             <Card id={card.id} mark={card.mark} color={card.color} />
+            <h5>{card.owner.getName()}</h5>
+          </div>
+        ))}
+      </div>
+      <div>
+        {players.map((player, index) => (
+          <div key={index}>
+            <h3>{player.getName()}'s Hand:</h3>
+            <ul>
+              {player.hand.map((card, cardIndex) => (
+                <li key={cardIndex}>{card.id} of {card.mark}</li>
+              ))}
+            </ul>
           </div>
         ))}
       </div>
