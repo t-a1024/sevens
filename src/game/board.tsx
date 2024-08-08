@@ -19,10 +19,15 @@ function shuffleArray(array: any[]) {
 }
 
 class Board {
-  players: Player[];
+  players: Player[] = [];
   board: CardSituation[] = [];
 
-  constructor(players: Player[]) {
+  constructor(){
+    console.log("new Board");
+    
+  }
+
+  gameStart(players: Player[]) {
     this.players = players;
     if (players.length <= 1) {
       throw new Error("プレイヤーの人数は2人以上必要です");
@@ -63,7 +68,55 @@ class Board {
         player.hand = this.board.filter(card=>card.owner.name==player.name).map(cardData => cardData)
     });
   }
+
+  GetCanPlaceCard(): CardSituation[] {
+    const returnData: CardSituation[] = [];
+
+    for (let index = 0; index < markData.length; index++) {
+      const mark = markData[index].label;
+
+      for (let index2 = 7; index2 <= 13; index2++) {
+        const card = this.findCard(index2, mark);
+        if (card && !card.situation) {
+          returnData.push(card);
+          break;
+        }
+      }
+
+      for (let index2 = 7; index2 >= 1; index2--) {
+        const card = this.findCard(index2, mark);
+        if (card && !card.situation) {
+          returnData.push(card);
+          break;
+        }
+      }
+    }
+
+    return returnData;
+  }
+
+  useCard(card: CardSituation, player: Player):boolean {
+    const playableCard = findCardByIdAndMark(this.GetCanPlaceCard(), card.id, card.mark);
+
+    if (playableCard) {
+      const targetCard = this.board.find(cards => card.id === cards.id && card.mark === cards.mark);
+      if (targetCard&&targetCard.owner.getName==player.getName) {
+        targetCard.situation = true;
+        return true;
+      }
+    }
+    return false;
+  }
+
+  findCard(id:number,mark:string){
+    return findCardByIdAndMark(this.board,id,mark);
+  }
+
 }
 
-export { Board };    export type { CardSituation };
+function findCardByIdAndMark(cards: CardSituation[], id: number, mark: string): CardSituation | undefined {
+  return cards.find(card => card.id === id && card.mark === mark);
+}
+
+export { Board ,findCardByIdAndMark};    export type { CardSituation };
 
