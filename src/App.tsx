@@ -54,9 +54,9 @@ function App() {
     <div className="App">
       {/* ボードの表示 */}
       <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {board.map((card, index) => (
+        {board.map((card, index) => (/*  card.situation = trueならid={card.id}、違えばid=0で表示したい */
           <div key={index} style={{ margin: "10px" }}>
-            <Card id={card.id} mark={card.mark} color={card.color} />
+            <Card id={card.situation ? card.id : 0} mark={card.mark} color={card.color} />
             <h5>{card.owner?.getName()}</h5>
           </div>
         ))}
