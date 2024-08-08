@@ -72,6 +72,9 @@ function App() {
                   {card.id} {card.mark}
                 </button>
               ))}
+              <button onClick={()=>
+                player.pass()
+              }></button>
           </div>
         ))}
       </div>

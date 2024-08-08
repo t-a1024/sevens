@@ -21,7 +21,7 @@ function shuffleArray(array: any[]) {
 class Board {
   players: Player[] = [];
   board: CardSituation[] = [];
-
+  nowPlayer:number = 0;
   constructor(){
     console.log("new Board");
     
@@ -29,6 +29,7 @@ class Board {
 
   gameStart(players: Player[]) {
     this.players = players;
+    this.players = shuffleArray(players);
     if (players.length <= 1) {
       throw new Error("プレイヤーの人数は2人以上必要です");
     }
@@ -57,6 +58,7 @@ class Board {
     });
     this.board = this.board.sort((a, b) => a.id - b.id).sort((a, b) => a.mark.localeCompare(b.mark));
     this.setPlayerHand();
+    
   }
 
   get getboard() {
@@ -64,8 +66,13 @@ class Board {
   }
 
   setPlayerHand(){
-    this.players.forEach(player=>{
+    this.players.forEach((player,index)=>{
         player.hand = this.board.filter(card=>card.owner.name==player.name).map(cardData => cardData)
+        const precard = findCardByIdAndMark(this.board,7,"♦")
+        if (precard&&precard.owner.name == player.name) {
+          player.setTurn();
+          this.nowPlayer = index;
+        }
     });
   }
 
@@ -102,6 +109,7 @@ class Board {
       const targetCard = this.board.find(cards => card.id === cards.id && card.mark === cards.mark);
       if (targetCard&&targetCard.owner.getName==player.getName) {
         targetCard.situation = true;
+        this.advanceTurn();
         return true;
       }
     }
@@ -112,6 +120,15 @@ class Board {
     return findCardByIdAndMark(this.board,id,mark);
   }
 
+  advanceTurn(){
+    this.nowPlayer++;
+    this.players[this.nowPlayer%this.players.length].setTurn();
+    console.log(this.players[this.nowPlayer%this.players.length].getName());
+  }
+
+  getNowPlayerName(){
+    return this.players[this.nowPlayer%this.players.length];
+  }
 }
 
 function findCardByIdAndMark(cards: CardSituation[], id: number, mark: string): CardSituation | undefined {
