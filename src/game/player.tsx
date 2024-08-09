@@ -47,8 +47,10 @@ export class Player {
   }
 
   pass(){
-    this.canUseCard = false;
-    this.board.advanceTurn();
+    if (this.canUseCard) {
+        this.canUseCard = false;
+        this.board.advanceTurn();   
+    }
   }
 
   getName(){
