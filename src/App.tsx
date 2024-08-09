@@ -4,11 +4,15 @@ import { Board } from './game/board';
 import { Player } from './game/player';
 
 function App() {
-  // useRefを使用してBoardのインスタンスを1回だけ作成
+  // Boardインスタンスを1回だけ作成
   const managerRef = useRef<Board | null>(null);
 
-  // 初回マウント時にgameStartを一度だけ実行するためのフラグ
-  const hasGameStarted = useRef(false);
+  // プレイヤー名を入力するためのステート
+  const [playerName, setPlayerName] = useState("");
+  const [players, setPlayers] = useState<Player[]>([]);
+  const [board, setBoard] = useState<any[]>([]);
+  const [gameStarted, setGameStarted] = useState(false); // ゲーム開始状態を管理
+  const [currentPlayerName, setCurrentPlayerName] = useState<string>(""); // 現在のプレイヤー名を管理
 
   if (!managerRef.current) {
     managerRef.current = new Board();
@@ -16,26 +20,22 @@ function App() {
 
   const manager = managerRef.current;
 
-  // プレイヤーとボードの状態を管理
-  const [players, setPlayers] = useState<Player[]>([]);
-  const [board, setBoard] = useState(manager.getboard);
-
-  // 初回マウント時にgameStartを実行してプレイヤーを初期化
-  useEffect(() => {
-    if (!hasGameStarted.current) {
-      const initialPlayers = [
-        new Player("t-a", manager),
-        new Player("tas", manager),
-        new Player("aki", manager),
-      ];
-      setPlayers(initialPlayers);
-
-      manager.gameStart(initialPlayers);
-      setBoard(manager.getboard); // 初期ボード状態を設定
-
-      hasGameStarted.current = true; // gameStartが実行されたことを記録
+  // プレイヤーを追加するハンドラ
+  const addPlayer = () => {
+    if (playerName.trim() !== "") {
+      const newPlayer = new Player(playerName, manager);
+      setPlayers([...players, newPlayer]);
+      setPlayerName(""); // 入力欄をクリア
     }
-  }, [manager]);
+  };
+
+  // ゲームを開始するハンドラ
+  const startGame = () => {
+    manager.gameStart(players);
+    setBoard(manager.getboard);
+    setCurrentPlayerName(manager.getNowPlayerName()); // 現在のプレイヤー名を取得
+    setGameStarted(true); // ゲーム開始状態にする
+  };
 
   // カード使用時のハンドラ
   const handleUseCard = (playerIndex: number, cardIndex: number) => {
@@ -48,46 +48,71 @@ function App() {
     // 状態を更新して画面をリフレッシュ
     setPlayers(newPlayers);
     setBoard(manager.getboard);
+    setCurrentPlayerName(manager.getNowPlayerName()); // 使用後に現在のプレイヤー名を更新
   };
 
   return (
     <div className="App">
-      {/* ボードの表示 */}
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {board.map((card, index) => (/*  card.situation = trueならid={card.id}、違えばid=0で表示したい */
-          <div key={index} style={{ margin: "10px" }}>
-            <Card id={card.situation ? card.id : 0} mark={card.mark} color={card.color} />
-            <h5>{card.owner?.getName()}</h5>
-          </div>
-        ))}
-      </div>
+      {!gameStarted ? (
+        // ゲーム開始前はプレイヤー登録フォームとプレイヤーリストを表示
+        <div>
+          <input
+            type="text"
+            value={playerName}
+            onChange={(e) => setPlayerName(e.target.value)}
+            placeholder="プレイヤー名を入力"
+          />
+          <button onClick={addPlayer}>プレイヤーを追加</button>
+          <button onClick={startGame} disabled={players.length === 0}>ゲーム開始</button>
+          
+          <h3>登録されたプレイヤー:</h3>
+          <ul>
+            {players.map((player, index) => (
+              <li key={index}>{player.getName()}</li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        // ゲーム開始後はボードとプレイヤーの手札、プレイ可能なカードを表示
+        <div>
+          <h2>現在のプレイヤー: {currentPlayerName}</h2> {/* 現在のプレイヤー名を表示 */}
 
-      {/* プレイヤーの手札の表示 */}
-      <div>
-        {players.map((player, playerIndex) => (
-          <div key={playerIndex} style={{ display: "flex", flexWrap: "wrap" }}>
-            <h3>{player.getName()}'s Hand:</h3>
-              {player.hand.map((card, cardIndex) => (
-                <button key={cardIndex} onClick={() => handleUseCard(playerIndex, cardIndex)}>
-                  {card.id} {card.mark}
-                </button>
-              ))}
-              <button onClick={()=>
-                player.pass()
-              }></button>
+          {/* ボードの表示 */}
+          <div style={{ display: "flex", flexWrap: "wrap" }}>
+            {board.map((card, index) => (
+              <div key={index} style={{ margin: "10px" }}>
+                <Card id={card.situation ? card.id : 0} mark={card.mark} color={card.color} />
+                <h5>{card.owner?.getName()}</h5>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      {/* プレイ可能なカードの表示 */}
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {manager.GetCanPlaceCard().map((card, index) => (
-          <div key={index} style={{ margin: "10px" }}>
-            <Card id={card.id} mark={card.mark} color={card.color} />
-            <h5>{card.owner?.getName()}</h5>
+          {/* プレイヤーの手札の表示 */}
+          <div>
+            {players.map((player, playerIndex) => (
+              <div key={playerIndex} style={{ display: "flex", flexWrap: "wrap" }}>
+                <h3>{player.getName()}'s Hand:</h3>
+                {player.hand.map((card, cardIndex) => (
+                  <button key={cardIndex} onClick={() => handleUseCard(playerIndex, cardIndex)}>
+                    {card.id} {card.mark}
+                  </button>
+                ))}
+                <button onClick={() => player.pass()}>パス</button>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+
+          {/* プレイ可能なカードの表示 */}
+          <div style={{ display: "flex", flexWrap: "wrap" }}>
+            {manager.GetCanPlaceCard().map((card, index) => (
+              <div key={index} style={{ margin: "10px" }}>
+                <Card id={card.id} mark={card.mark} color={card.color} />
+                <h5>{card.owner?.getName()}</h5>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

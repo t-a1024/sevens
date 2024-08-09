@@ -126,8 +126,8 @@ class Board {
     console.log(this.players[this.nowPlayer%this.players.length].getName());
   }
 
-  getNowPlayerName(){
-    return this.players[this.nowPlayer%this.players.length];
+  getNowPlayerName():string{
+    return this.players[this.nowPlayer%this.players.length].getName();
   }
 }
 
