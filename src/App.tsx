@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import Card from "./assets/cardCompornents";
 import { Board } from './game/board';
 import { Player } from './game/player';

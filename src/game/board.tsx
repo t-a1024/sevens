@@ -30,8 +30,8 @@ class Board {
   gameStart(players: Player[]) {
     this.players = players;
     this.players = shuffleArray(players);
-    if (players.length <= 1) {
-      throw new Error("プレイヤーの人数は2人以上必要です");
+    if (players.length <= 2) {
+      throw new Error("プレイヤーの人数は3人以上必要です");
     }
 
     // カードデータを初期化
@@ -72,6 +72,8 @@ class Board {
         if (precard&&precard.owner.name === player.name) {
           player.setTurn();
           this.nowPlayer = index;
+          console.log(this.nowPlayer);
+          
         }
     });
   }
@@ -102,28 +104,37 @@ class Board {
     return returnData;
   }
 
-  useCard(card: CardSituation, player: Player):boolean {
+  useCard(card: CardSituation, player: Player): boolean {
     const playableCard = findCardByIdAndMark(this.GetCanPlaceCard(), card.id, card.mark);
-
+  
     if (playableCard) {
       const targetCard = this.board.find(cards => card.id === cards.id && card.mark === cards.mark);
-      if (targetCard&&targetCard.owner.getName===player.getName) {
+      if (targetCard && targetCard.owner.getName() === player.getName()) {
         targetCard.situation = true;
+  
+        // カードが使用された後にターンを進行
         this.advanceTurn();
         return true;
       }
     }
     return false;
   }
+  
 
   findCard(id:number,mark:string){
     return findCardByIdAndMark(this.board,id,mark);
   }
 
-  advanceTurn(){
-    this.nowPlayer++;
-    this.players[this.nowPlayer%this.players.length].setTurn();
-    console.log(this.players[this.nowPlayer%this.players.length].getName());
+  advanceTurn() {
+    // 現在のプレイヤーのターンをリセット
+    //this.players[this.nowPlayer % this.players.length].resetTurn();
+  
+    // 次のプレイヤーにターンを進める
+    this.nowPlayer = (this.nowPlayer + 1) % this.players.length;
+  
+    // 新しいプレイヤーのターンをセット
+    this.players[this.nowPlayer].setTurn();
+    console.log(`現在のプレイヤー: ${this.players[this.nowPlayer].getName()}`);
   }
 
   getNowPlayerName():string{

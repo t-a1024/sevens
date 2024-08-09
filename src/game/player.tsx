@@ -25,7 +25,6 @@ export class Player {
         const pre = findCardByIdAndMark(this.hand,7,mark.label);
         if (pre) {
             this.useCard(pre);
-            this.canUseCard = true;
         }
       })
   }
