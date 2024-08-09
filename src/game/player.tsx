@@ -15,13 +15,13 @@ export class Player {
 
   set hand(v: CardSituation[]) {
     this._hand = v;
-    markData.filter(mark=>mark.label!="♦").map(mark=>{
+    markData.filter(mark=>mark.label!=="♦").forEach((mark)=>{
       const pre = findCardByIdAndMark(this.hand,7,mark.label);
       if (pre) {
           this.useCard(pre);
       }
     })
-    markData.filter(mark=>mark.label=="♦").map(mark=>{
+    markData.filter(mark=>mark.label==="♦").forEach(mark=>{
         const pre = findCardByIdAndMark(this.hand,7,mark.label);
         if (pre) {
             this.useCard(pre);

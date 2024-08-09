@@ -1,4 +1,4 @@
-import { Card, CardData } from "../assets/cardData";
+import { CardData } from "../assets/cardData";
 import { markData } from "../assets/markData";
 import { Player } from "./player";
 
@@ -67,9 +67,9 @@ class Board {
 
   setPlayerHand(){
     this.players.forEach((player,index)=>{
-        player.hand = this.board.filter(card=>card.owner.name==player.name).map(cardData => cardData)
+        player.hand = this.board.filter(card=>card.owner.name===player.name).map(cardData => cardData)
         const precard = findCardByIdAndMark(this.board,7,"♦")
-        if (precard&&precard.owner.name == player.name) {
+        if (precard&&precard.owner.name === player.name) {
           player.setTurn();
           this.nowPlayer = index;
         }
@@ -107,7 +107,7 @@ class Board {
 
     if (playableCard) {
       const targetCard = this.board.find(cards => card.id === cards.id && card.mark === cards.mark);
-      if (targetCard&&targetCard.owner.getName==player.getName) {
+      if (targetCard&&targetCard.owner.getName===player.getName) {
         targetCard.situation = true;
         this.advanceTurn();
         return true;
