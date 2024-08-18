@@ -51,6 +51,17 @@ function App() {
     setCurrentPlayerName(manager.getNowPlayerName()); // 使用後に現在のプレイヤー名を更新
   };
 
+  const pass = (playerIndex: number) => {
+    const newPlayers = [...players];
+    const player = newPlayers[playerIndex];
+
+    player.pass();
+
+    setPlayers(newPlayers);
+    setBoard(manager.getboard);
+    setCurrentPlayerName(manager.getNowPlayerName())
+  }
+
   return (
     <div className="App">
       {!gameStarted ? (
@@ -97,7 +108,7 @@ function App() {
                     {card.id} {card.mark}
                   </button>
                 ))}
-                <button onClick={() => player.pass()}>パス</button>
+                <button onClick={() => pass(playerIndex)}>パス</button>
               </div>
             ))}
           </div>

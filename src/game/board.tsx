@@ -29,7 +29,7 @@ class Board {
 
   gameStart(players: Player[]) {
     this.players = players;
-    this.players = shuffleArray(players);
+    //this.players = shuffleArray(players);
     if (players.length <= 2) {
       throw new Error("プレイヤーの人数は3人以上必要です");
     }
