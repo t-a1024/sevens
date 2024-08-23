@@ -51,6 +51,10 @@ export class Manager{
         const id:number = Number(sendData.split(":")[1])
         const mark:string = sendData.split(":")[2]
         const player = this.playerList.find(p=>p.getName()===name);
+        if (id===0&&mark==='0') {
+            player?.pass()
+            return true;
+        }
         const card = findCardByIdAndMark(this.board.getboard,id,mark);
         if (player&&card) {
             if (player.useCard(card)) {

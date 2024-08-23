@@ -16,10 +16,10 @@ export class action{
         return false;
     }
 
-    pass():boolean{
-        //'use'+this.playerName+':0:0'を送る
-        return false;
-    }
+    // pass():boolean{
+    //     //'use'+this.playerName+':0:0'を送る
+    //     return false;
+    // }
 
     sendMessage(message:string){
         console.log(message);

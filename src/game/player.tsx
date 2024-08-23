@@ -61,7 +61,7 @@ export class Player {
   }
 
   handToString():string{
-    let returnData: string = "0:Null";
+    let returnData: string = "0:0";
     this.hand.forEach(card=>{
       returnData += '/'+card.id+':'+card.mark
     })

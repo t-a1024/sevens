@@ -81,8 +81,9 @@ function PlayerView({ manager }: { manager: Manager }) {
             {/* ゲームが開始されていて、参加している場合 */}
             {gameStarted && joined && (
                 <div>
-                    {myHand.map((hand, index) => (
-                        <button key={index} onClick={() => userAction.useCard(hand)} value={hand}>
+                    <button key={0} onClick={()=>userAction.useCard('0:0')}>pass</button>
+                    {myHand.slice(1).map((hand, index) => (
+                        <button key={index+1} onClick={() => userAction.useCard(hand)} value={hand}>
                             {hand}
                         </button>
                     ))}
