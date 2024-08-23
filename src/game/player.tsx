@@ -34,11 +34,14 @@ export class Player {
     return this._hand;
   }
 
-  useCard(card:CardSituation){
+  useCard(card:CardSituation):boolean{
     if (this.canUseCard&&this.board.useCard(card,this)) {
         this.hand = this.hand.filter(cards => !(card.id === cards.id && card.mark === cards.mark));
         console.log("used" + card);
         this.canUseCard = false;
+        return true;
+    }else{
+      return false;
     }
   }
 
@@ -56,5 +59,12 @@ export class Player {
   getName(){
     return this.name;
   }
-  
+
+  handToString():string{
+    let returnData: string = "0:Null";
+    this.hand.forEach(card=>{
+      returnData += '/'+card.id+':'+card.mark
+    })
+    return returnData;
+  }
 }
