@@ -36,7 +36,7 @@ export class Manager{
         }
     }
 
-    getMessageByPlayer(message:string){
+    getMessageByPlayer(message:string){//プレイヤーサイドからのメッセージを受け取った際に実行する予定
         this.useCardByPlayer(message)
         /* console.log(message)
         if (/^use/.test(message)) {
@@ -64,7 +64,7 @@ export class Manager{
         return false;
     }
 
-    getPlayerHand(playerName:string):string{
+    getPlayerHand(playerName:string):string{//プレイヤーからメッセージが来た際に処理を終えてからメッセージを出したプレイヤー宛に送りたい
         const returnData = this.playerList.find(p=>p.getName()===playerName)?.handToString();
         if (returnData) {
             return returnData;

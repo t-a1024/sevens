@@ -24,7 +24,7 @@ function PlayerView({ manager }: { manager: Manager }) {
 
     const startGame = () => {
         if (!gameStarted && joined) {
-            setMyHand(userAction.getHand().split('/'));
+            updateHand();
             setGameStarted(true);
         }
     };
@@ -43,23 +43,6 @@ function PlayerView({ manager }: { manager: Manager }) {
             updateHand();
         }
     };
-
-    // useEffect(() => {
-    //     const update = () => {
-    //         if (!gameStarted && manager.gameStarted) {
-    //             startGame();
-    //         } else {
-    //             updateHand();
-    //         }
-    //     };
-
-    //     document.getElementById('playerView')?.addEventListener('keyup', update);
-
-    //     // Cleanup function to remove event listener
-    //     return () => {
-    //         document.getElementById('playerView')?.removeEventListener('keyup', update);
-    //     };
-    // }, [gameStarted, joined, playerName, manager]);
 
     return (
         <div id='playerView'>
