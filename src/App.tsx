@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import  { useState, useEffect, useRef } from 'react';
 import Card from "./assets/cardCompornents";
 import { CardData } from "./assets/cardData";
 import { markData } from "./assets/markData";
@@ -30,7 +30,7 @@ function App() {
   const [matchedCount, setMatchedCount] = useState(0);
   const [moveCount, setMoveCount] = useState(0); // 手数の状態を追加
   const [scale, setScale] = useState(1); // スケール状態を追加
-
+  const [width, setWidth] = useState(100);
   const appRef = useRef<HTMLDivElement>(null); // refを作成
 
   // 初期化処理
@@ -67,8 +67,14 @@ function App() {
         const heightScale = window.innerHeight / appHeight;
         console.log(widthScale);
         console.log(heightScale);
-                
-        setScale(Math.min(widthScale, heightScale));
+        if (appWidth>window.innerWidth) {
+          alert("このゲームは横画面推奨です。")
+          setScale(widthScale)
+        }else{
+          setScale(heightScale)
+          setWidth(100*(widthScale/heightScale))
+          console.log(width)
+        }
       }
     };
 
@@ -136,10 +142,10 @@ function App() {
 
   return (
     <div className="bg_pattern1 Paper_v2">  
-      <div className="App" style={{ transform: `scale(${scale})`, transformOrigin: 'top left' }}>
-        <div className='autoScale' ref={appRef}>
+      <div className="App" style={{ transform: `scale(${scale})`, transformOrigin: 'top left'}}>
+        <div className='autoScale' ref={appRef} style={{ minWidth: `${width}vw`}}>
           <h3>手数: {moveCount}</h3>
-          <h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1><h1></h1>
+          <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
           {cards.map((card, index) => (
             <div key={index} style={{ margin: "10px" }} onClick={() => handleCardClick(index)} className={`card ${card.isFlipped ? 'flipped' : 'unflipped'}`}>
               {card.isFlipped || card.isMatched ? (
