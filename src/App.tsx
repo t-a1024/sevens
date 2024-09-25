@@ -35,6 +35,10 @@ function App() {
 
   // 初期化処理
   useEffect(() => {
+    reset();
+  }, []);
+
+  function reset() {
     // idが0のカードを取り除く
     const filteredCardData = CardData.filter(card => card.id !== 0);
 
@@ -52,7 +56,9 @@ function App() {
     // シャッフルされたカードデータ
     const shuffledData = shuffleArray(combinedData);
     setCards(shuffledData);
-  }, []);
+    setMoveCount(0);
+    setMatchedCount(0);
+  }
 
   // 画面サイズに応じてスケールを設定
   useEffect(() => {
@@ -104,9 +110,6 @@ function App() {
     if (cards[index].isFlipped || cards[index].isMatched || flippedCards.length === 2) {
       return;
     }
-
-    setMoveCount(moveCount + 1); // カードをクリックするたびに手数を増加
-
     const newCards = [...cards];
     newCards[index].isFlipped = true;
     setCards(newCards);
@@ -115,7 +118,7 @@ function App() {
     if (flippedCards.length === 1) {
       const firstIndex = flippedCards[0];
       const secondIndex = index;
-
+      setMoveCount(moveCount + 1); // カードをクリックするたびに手数を増加
       if (newCards[firstIndex].str === newCards[secondIndex].str) {
         newCards[firstIndex].isMatched = true;
         newCards[secondIndex].isMatched = true;
@@ -145,13 +148,19 @@ function App() {
       <div className="App" style={{ transform: `scale(${scale})`, transformOrigin: 'top left'}}>
         <div className='autoScale' ref={appRef} style={{ minWidth: `${width}vw`}}>
           <h3>手数: {moveCount}</h3>
-          <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+          <h3>残り: {(52-matchedCount)/2}</h3><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+          {matchedCount==52 ? (<button onClick={reset}>もう一度</button>):(<div></div>)}
           {cards.map((card, index) => (
             <div key={index} style={{ margin: "10px" }} onClick={() => handleCardClick(index)} className={`card ${card.isFlipped ? 'flipped' : 'unflipped'}`}>
-              {card.isFlipped || card.isMatched ? (
-                <Card id={card.id} mark={card.mark} color={card.color} />//カードの表面
+              {card.isMatched ? (
+                // 1. card.isMatched が true の場合（カードがペアとしてマッチした状態）
+                <Card id={card.id} mark={card.mark} color={card.color} outlineColor='black' />
+              ) : card.isFlipped ? (
+                // 2. card.isFlipped が true の場合（カードがめくられている状態）
+                <Card id={card.id} mark={card.mark} color={card.color} outlineColor='greenyellow'/>
               ) : (
-                <Card id={0} mark={card.mark} color={card.color} />//カードの裏面
+                // 3. どちらも false の場合（カードが裏返しの状態）
+                <Card id={0} mark={card.mark} color={card.color} outlineColor='black'/>
               )}
             </div>
           ))}

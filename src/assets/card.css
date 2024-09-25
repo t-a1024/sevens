@@ -1,12 +1,13 @@
-.card {
-    outline: solid black;
+.cardBox {
+    /* outline: solid black; */
     border-radius: 5px;
     height: 89px;
     overflow: hidden;
     width: 58px;
+    transform-style: preserve-3d;
 }
 
-.card .text-wrapper {
+.cardBox .text-wrapper {
     color: #000000;
     font-family: "Inter-Regular", Helvetica;
     font-size: 12px;
@@ -39,7 +40,7 @@
     width: 16px;
 }
 
-.card .group {
+.cardBox .group {
     height: 89px;
     left: 0;
     position: absolute;
