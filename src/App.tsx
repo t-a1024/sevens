@@ -32,6 +32,7 @@ function App() {
   const [scale, setScale] = useState(1); // スケール状態を追加
   const [width, setWidth] = useState(100);
   const appRef = useRef<HTMLDivElement>(null); // refを作成
+  const [alertFlag, setAlertFlag] = useState(false);
 
   // 初期化処理
   useEffect(() => {
@@ -66,44 +67,39 @@ function App() {
       if (appRef.current) {
         const appWidth = appRef.current.offsetWidth;
         const appHeight = appRef.current.offsetHeight;
-        console.log(appWidth);
-        console.log(appHeight);
-        
+  
         const widthScale = window.innerWidth / appWidth;
         const heightScale = window.innerHeight / appHeight;
-        console.log(widthScale);
-        console.log(heightScale);
-        if (appWidth>window.innerWidth) {
-          alert("このゲームは横画面推奨です。")
-          setScale(widthScale)
-        }else{
-          setScale(heightScale)
-          setWidth(100*(widthScale/heightScale))
-          console.log(width)
+  
+        if (widthScale <= heightScale) {
+          if (appWidth>window.innerWidth) {
+            setScale(widthScale)
+            alertScale();
+          }else{
+            setScale(heightScale)
+            setWidth(100*(widthScale/heightScale))
+            console.log("width,setwidth")
+          }
+        } else {
+          setScale(heightScale);
+          setWidth(100 * (widthScale / heightScale));
+          console.log('heightScale:', heightScale);
         }
       }
     };
-
-    const resizeObserver = new ResizeObserver(() => {
-      updateScale();
-    });
-
-    if (appRef.current) {
-      resizeObserver.observe(appRef.current);
-    }
-
-    window.addEventListener('resize', updateScale);
-    
-    // 最初のレンダリング後にスケールを計算
+  
+    // 初回実行
     setTimeout(updateScale, 0);
-
+  
+    // ウィンドウサイズ変更時にもスケールを更新
+    window.addEventListener('resize', updateScale);
+  
+    // クリーンアップ
     return () => {
       window.removeEventListener('resize', updateScale);
-      if (appRef.current) {
-        resizeObserver.unobserve(appRef.current);
-      }
     };
-  }, []);
+  }, [appRef]);
+  
 
   // カードをクリックしたときの処理
   const handleCardClick = (index: number) => {
@@ -143,13 +139,20 @@ function App() {
     }
   }, [matchedCount, cards]);
 
+  const alertScale = () => {
+    if (!alertFlag) {
+        alert();
+        setAlertFlag(false);
+    }
+  }
+
   return (
-    <div className="bg_pattern1 Paper_v2">  
+    <div className="bg_pattern1 Paper_v2">
       <div className="App" style={{ transform: `scale(${scale})`, transformOrigin: 'top left'}}>
         <div className='autoScale' ref={appRef} style={{ minWidth: `${width}vw`}}>
           <h3>手数: {moveCount}</h3>
           <h3>残り: {(52-matchedCount)/2}</h3><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-          {matchedCount==52 ? (<button onClick={reset}>もう一度</button>):(<div></div>)}
+          {matchedCount===52 ? (<button onClick={reset}>もう一度</button>):(<div></div>)}
           {cards.map((card, index) => (
             <div key={index} style={{ margin: "10px" }} onClick={() => handleCardClick(index)} className={`card ${card.isFlipped ? 'flipped' : 'unflipped'}`}>
               {card.isMatched ? (
