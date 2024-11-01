@@ -87,8 +87,6 @@ function App() {
         }
       }
     };
-  
-    // 初回実行
     setTimeout(updateScale, 0);
   
     // ウィンドウサイズ変更時にもスケールを更新
