@@ -1,10 +1,9 @@
-import  { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Card from "./assets/cardCompornents";
 import { CardData } from "./assets/cardData";
 import { markData } from "./assets/markData";
-import './App.css'; // CSSファイルをインポート
+import './App.css'; 
 
-// 配列をシャッフルする関数を定義
 function shuffleArray(array: any[]) {
   return array
     .map(value => ({ value, sort: Math.random() }))
@@ -12,7 +11,6 @@ function shuffleArray(array: any[]) {
     .map(({ value }) => value);
 }
 
-// カードのデータと表示用の型定義
 interface ShuffledCard {
   id: number;
   str: string;
@@ -24,26 +22,24 @@ interface ShuffledCard {
 }
 
 function App() {
-  // カードの初期データ
+  const [gameMode, setGameMode] = useState<'single' | 'multi' | null>(null);
+  const [currentPlayer, setCurrentPlayer] = useState(1);
+  const [scores, setScores] = useState([0, 0]); // To track scores in multiplayer mode
   const [cards, setCards] = useState<ShuffledCard[]>([]);
   const [flippedCards, setFlippedCards] = useState<number[]>([]);
   const [matchedCount, setMatchedCount] = useState(0);
-  const [moveCount, setMoveCount] = useState(0); // 手数の状態を追加
-  const [scale, setScale] = useState(1); // スケール状態を追加
+  const [moveCount, setMoveCount] = useState(0); 
+  const [scale, setScale] = useState(1); 
   const [width, setWidth] = useState(100);
-  const appRef = useRef<HTMLDivElement>(null); // refを作成
+  const appRef = useRef<HTMLDivElement>(null);
   const [alertFlag, setAlertFlag] = useState(false);
-
-  // 初期化処理
+  const playerColors = ['green', 'skyblue']; // Player 1: green, Player 2: skyblue
   useEffect(() => {
     reset();
   }, []);
 
   function reset() {
-    // idが0のカードを取り除く
     const filteredCardData = CardData.filter(card => card.id !== 0);
-
-    // CardDataとmarkDataの組み合わせを作成
     const combinedData = filteredCardData.flatMap(card =>
       markData.map(mark => ({
         ...card,
@@ -53,12 +49,13 @@ function App() {
         isMatched: false,
       }))
     );
-
-    // シャッフルされたカードデータ
     const shuffledData = shuffleArray(combinedData);
     setCards(shuffledData);
     setMoveCount(0);
     setMatchedCount(0);
+    setFlippedCards([]);
+    setCurrentPlayer(1); 
+    setScores([0, 0]); 
   }
 
   // 画面サイズに応じてスケールを設定
@@ -72,38 +69,29 @@ function App() {
         const heightScale = window.innerHeight / appHeight;
   
         if (widthScale <= heightScale) {
-          if (appWidth>window.innerWidth) {
-            setScale(widthScale)
+          if (appWidth > window.innerWidth) {
+            setScale(widthScale);
             alertScale();
-          }else{
-            setScale(heightScale)
-            setWidth(100*(widthScale/heightScale))
-            console.log("width,setwidth")
+          } else {
+            setScale(heightScale);
+            setWidth(100 * (widthScale / heightScale));
           }
         } else {
           setScale(heightScale);
           setWidth(100 * (widthScale / heightScale));
-          console.log('heightScale:', heightScale);
         }
       }
     };
     setTimeout(updateScale, 0);
-  
-    // ウィンドウサイズ変更時にもスケールを更新
     window.addEventListener('resize', updateScale);
-  
-    // クリーンアップ
     return () => {
       window.removeEventListener('resize', updateScale);
     };
   }, [appRef]);
-  
 
-  // カードをクリックしたときの処理
   const handleCardClick = (index: number) => {
-    if (cards[index].isFlipped || cards[index].isMatched || flippedCards.length === 2) {
-      return;
-    }
+    if (cards[index].isFlipped || cards[index].isMatched || flippedCards.length === 2) return;
+
     const newCards = [...cards];
     newCards[index].isFlipped = true;
     setCards(newCards);
@@ -112,19 +100,31 @@ function App() {
     if (flippedCards.length === 1) {
       const firstIndex = flippedCards[0];
       const secondIndex = index;
-      setMoveCount(moveCount + 1); // カードをクリックするたびに手数を増加
+      setMoveCount(moveCount + 1);
+
       if (newCards[firstIndex].str === newCards[secondIndex].str) {
         newCards[firstIndex].isMatched = true;
         newCards[secondIndex].isMatched = true;
         setCards(newCards);
         setFlippedCards([]);
         setMatchedCount(matchedCount + 2);
+
+        if (gameMode === 'multi') {
+          const newScores = [...scores];
+          newScores[currentPlayer - 1] += 1; 
+          setScores(newScores);
+        }
+
       } else {
         setTimeout(() => {
           newCards[firstIndex].isFlipped = false;
           newCards[secondIndex].isFlipped = false;
           setCards(newCards);
           setFlippedCards([]);
+
+          if (gameMode === 'multi') {
+            setCurrentPlayer(currentPlayer === 1 ? 2 : 1);
+          }
         }, 1000);
       }
     }
@@ -133,35 +133,63 @@ function App() {
   // ゲームクリアの判定
   useEffect(() => {
     if (matchedCount === cards.length && cards.length > 0) {
-      alert("クリアおめでとうございます！  手数: " + moveCount);
+      if (gameMode === 'multi') {
+        const winner =
+          scores[0] > scores[1]
+            ? 'Player 1 wins!'
+            : scores[1] > scores[0]
+            ? 'Player 2 wins!'
+            : "draw";
+        alert(winner);
+      } else {
+        alert(`クリアおめでとうございます！  手数:  ${moveCount}`);
+      }
     }
   }, [matchedCount, cards]);
 
-  function alertScale(){
+  function alertScale() {
     if (!alertFlag) {
-        setAlertFlag(a=>!a);
-        alert("このゲームは横画面推奨です");
+      setAlertFlag(a => !a);
+      alert("このゲームは横画面推奨です");
     }
+  }
+
+  if (!gameMode) {
+    return (
+      <div className="bg_pattern1 Paper_v2">
+        <div className="start-screen">
+          <h1>真剣衰弱</h1>
+          <div>
+            <button onClick={() => setGameMode('single')}>一人プレイ</button>
+            <button onClick={() => setGameMode('multi')}>二人プレイ</button>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="bg_pattern1 Paper_v2">
-      <div className="App" style={{ transform: `scale(${scale})`, transformOrigin: 'top left'}}>
-        <div className='autoScale' ref={appRef} style={{ minWidth: `${width}vw`}}>
-          <h3>手数: {moveCount}</h3>
-          <h3>残り: {(52-matchedCount)/2}</h3><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-          {matchedCount===52 ? (<button onClick={reset}>もう一度</button>):(<div></div>)}
+      <div className="App" style={{ transform: `scale(${scale})`, transformOrigin: 'top left' }}>
+        <div className='autoScale' ref={appRef} style={{ minWidth: `${width}vw` }}>
+        <h3>手数: {moveCount}</h3>
+        <h3>残り: {(52-matchedCount)/2}</h3>
+          {gameMode === 'multi' && <p style={{color:playerColors[currentPlayer - 1]}}>Player {currentPlayer}のターン</p>}
+          {gameMode === 'multi' && <p style={{color:'green'}}>Player 1: {scores[0]}</p>}
+          {gameMode === 'multi' && <p style={{color:'deepblue'}}>Player 2: {scores[1]}</p>}
+          {gameMode === 'single' && <div></div>}{gameMode === 'single' && <div></div>}{gameMode === 'single' && <div></div>}
+          <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+          {matchedCount === 52 ? (
+            <button onClick={reset}>もう一度プレイ</button>
+          ) : <div></div>}
           {cards.map((card, index) => (
             <div key={index} style={{ margin: "10px" }} onClick={() => handleCardClick(index)} className={`card ${card.isFlipped ? 'flipped' : 'unflipped'}`}>
               {card.isMatched ? (
-                // 1. card.isMatched が true の場合（カードがペアとしてマッチした状態）
-                <Card id={card.id} mark={card.mark} color={card.color} outlineColor='black' />
+                <Card id={card.id} mark={card.mark} color={card.color} outlineColor='black' /* gameMode === 'multi'の際、outlineColorをプレイヤーの色にして */　/>
               ) : card.isFlipped ? (
-                // 2. card.isFlipped が true の場合（カードがめくられている状態）
-                <Card id={card.id} mark={card.mark} color={card.color} outlineColor='greenyellow'/>
+                <Card id={card.id} mark={card.mark} color={card.color} outlineColor={gameMode === 'multi' ? playerColors[currentPlayer - 1] : 'greenyellow'}/>
               ) : (
-                // 3. どちらも false の場合（カードが裏返しの状態）
-                <Card id={0} mark={card.mark} color={card.color} outlineColor='black'/>
+                <Card id={0} mark={card.mark} color={card.color} outlineColor='black' />
               )}
             </div>
           ))}
