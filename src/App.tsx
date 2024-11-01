@@ -139,10 +139,10 @@ function App() {
     }
   }, [matchedCount, cards]);
 
-  const alertScale = () => {
+  function alertScale(){
     if (!alertFlag) {
-        alert();
-        setAlertFlag(false);
+        setAlertFlag(a=>!a);
+        alert("このゲームは横画面推奨です");
     }
   }
 
