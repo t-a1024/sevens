@@ -87,7 +87,7 @@ function App() {
     return () => {
       window.removeEventListener('resize', updateScale);
     };
-  }, [appRef]);
+  }, [alertScale, appRef]);
 
   const handleCardClick = (index: number) => {
     if (cards[index].isFlipped || cards[index].isMatched || flippedCards.length === 2) return;
@@ -145,8 +145,9 @@ function App() {
         alert(`クリアおめでとうございます！  手数:  ${moveCount}`);
       }
     }
-  }, [matchedCount, cards]);
+  }, [matchedCount, cards, gameMode, scores, moveCount]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   function alertScale() {
     if (!alertFlag) {
       setAlertFlag(a => !a);
@@ -158,7 +159,8 @@ function App() {
     return (
       <div className="bg_pattern1 Paper_v2">
         <div className="start-screen">
-          <h1>真剣衰弱</h1>
+          <h1>神経衰弱
+          </h1>
           <div>
             <button onClick={() => setGameMode('single')}>一人プレイ</button>
             <button onClick={() => setGameMode('multi')}>二人プレイ</button>
@@ -172,20 +174,52 @@ function App() {
     <div className="bg_pattern1 Paper_v2">
       <div className="App" style={{ transform: `scale(${scale})`, transformOrigin: 'top left' }}>
         <div className='autoScale' ref={appRef} style={{ minWidth: `${width}vw` }}>
-        <h3>手数: {moveCount}</h3>
-        <h3>残り: {(52-matchedCount)/2}</h3>
-          {gameMode === 'multi' && <p style={{color:playerColors[currentPlayer - 1]}}>Player {currentPlayer}のターン</p>}
-          {gameMode === 'multi' && <p style={{color:'green'}}>Player 1: {scores[0]}</p>}
-          {gameMode === 'multi' && <p style={{color:'deepblue'}}>Player 2: {scores[1]}</p>}
-          {gameMode === 'single' && <div></div>}{gameMode === 'single' && <div></div>}{gameMode === 'single' && <div></div>}
-          <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-          {matchedCount === 52 ? (
-            <button onClick={reset}>もう一度プレイ</button>
-          ) : <div></div>}
+        {gameMode === 'single' && (
+          <>
+            <h3>手数: {moveCount}</h3>
+            <h3>残り: {(52 - matchedCount) / 2}</h3>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            {matchedCount === 52 ? (
+              <button onClick={reset}>もう一度プレイ</button>
+            ) : (
+              <div></div>
+            )}
+          </>
+        )}
+        {gameMode === 'multi' && (
+          <>
+            <p style={{ color: playerColors[currentPlayer - 1] }}>Player {currentPlayer}のターン</p>
+            <p style={{ color: 'green' }}>Player 1: {scores[0]}</p>
+            <p style={{ color: 'deepblue' }}>Player 2: {scores[1]}</p>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            {matchedCount === 52 ? (
+              <button onClick={reset}>もう一度プレイ</button>
+            ) : (
+              <div></div>
+            )}
+          </>
+        )}
           {cards.map((card, index) => (
             <div key={index} style={{ margin: "10px" }} onClick={() => handleCardClick(index)} className={`card ${card.isFlipped ? 'flipped' : 'unflipped'}`}>
               {card.isMatched ? (
-                <Card id={card.id} mark={card.mark} color={card.color} outlineColor='black' /* gameMode === 'multi'の際、outlineColorをプレイヤーの色にして */　/>
+                <Card id={card.id} mark={card.mark} color={card.color} outlineColor='black' />
               ) : card.isFlipped ? (
                 <Card id={card.id} mark={card.mark} color={card.color} outlineColor={gameMode === 'multi' ? playerColors[currentPlayer - 1] : 'greenyellow'}/>
               ) : (
