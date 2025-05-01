@@ -197,13 +197,13 @@ function App() {
         )}
         {gameMode === 'multi' && (
           <>
-            <p style={{ color: playerColors[currentPlayer - 1] }}>Player {currentPlayer}のターン</p>
             <p style={{ color: 'green' }}>Player 1: {scores[0]}</p>
-            <p style={{ color: 'deepblue' }}>Player 2: {scores[1]}</p>
             <div></div>
             <div></div>
             <div></div>
             <div></div>
+            <div></div>
+            <p style={{ color: playerColors[currentPlayer - 1],fontSize: '24px', fontWeight: 'bold'}}>Player{currentPlayer}</p>
             <div></div>
             <div></div>
             <div></div>
@@ -212,7 +212,7 @@ function App() {
             {matchedCount === 52 ? (
               <button onClick={reset}>もう一度プレイ</button>
             ) : (
-              <div></div>
+              <p style={{ color: 'deepblue' }}>Player 2: {scores[1]}</p>
             )}
           </>
         )}
