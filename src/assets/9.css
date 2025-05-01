@@ -1,0 +1,41 @@
+.element9 {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 46px;
+    height: 87%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(auto);
+    gap: 0;
+}
+
+.element9 .text9 {
+    color: #000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+    position: relative;
+    text-align: center;
+    white-space: nowrap;
+    width: fit-content;
+    align-self: center;
+    justify-self: center;
+}
+.element9 .card9Center{
+    color: #000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+    position: absolute;
+    text-align: center;
+    white-space: nowrap;
+    width: fit-content;
+    align-self: center;
+    justify-self: center;
+}
